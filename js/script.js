@@ -6,7 +6,7 @@ let input = document.querySelector(".input-item");
 let addButton = document.querySelector(".btn-add");
 let todoItem = document.querySelector(".content");
 
-//Add Button
+// Button and function for adding items to the list 
 addButton.addEventListener("click", (e) => {
   e.preventDefault();
   addTodo(input.value);
@@ -15,6 +15,7 @@ addButton.addEventListener("click", (e) => {
   // console.log([todoArray]);
   location.reload();
 });
+
 function addTodo(todoName) {
   if (todoName !== "") {
     let todoList = {
@@ -22,13 +23,13 @@ function addTodo(todoName) {
       name: todoName,
       completed: false,
     };
-    console.log(todoList);
     todoArray.push(todoList);
     input.value = "";
     localStorage.setItem("todoList", JSON.stringify(todoArray));
   }
 }
 
+// Appending my items to the DOM
 function appendItems() {
   todoArray.forEach((item) => {
     let checked = item.completed ? "checked" : null;
@@ -54,6 +55,7 @@ function appendItems() {
 }
 appendItems();
 
+// Delete Btn for the list of items 
 let deleteBtn = document.querySelectorAll(".deleteBtn");
 deleteBtn.forEach((del, index) => {
   del.addEventListener("click", (e) => {
@@ -66,6 +68,7 @@ deleteBtn.forEach((del, index) => {
   });
 });
 
+// This addeventListener is to target the checkbox through selecting every child the parent of the .content class 
 todoItem.addEventListener("click", (e) => {
   e.preventDefault();
   console.log(e.target.parentElement.getAttribute("data-key"));
@@ -89,6 +92,7 @@ todoItem.addEventListener("click", (e) => {
 //     })
 // })
 
+// This function is to toggle between true and false for the completed property 
 function toggle(id) {
   todoArray.forEach((item) => {
     if (item.id == id) {
@@ -108,6 +112,8 @@ function toggle(id) {
 //     // })
 // })
 
+
+// The function is to prevent adding a duplicate item on the list (or at least it's suppose to)
 function duplicateItems(duplicate) {
   todoArray.forEach((item) => {
     if (item.name == duplicate) {
